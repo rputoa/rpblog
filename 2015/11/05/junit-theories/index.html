@@ -1,0 +1,296 @@
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>JUnit Theories Test 2 : Enum &amp; Assume</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/screen.css?v=0d44f1b05c">
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/prism.css?v=0d44f1b05c">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic%7COpen+Sans:700,400">
+
+    <link rel="canonical" href="http://localhost:2368/2015/11/05/junit-theories/">
+    
+    <meta property="og:site_name" content="rpBlog">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="JUnit Theories Test 2 : Enum &amp; Assume">
+    <meta property="og:description" content="Cet article est le second de la série sur les test de théories avec JUnit.  La première partie se trouve ici.  Cas d'étude : Cette fois-ci partons avec le cas suivant : Le matin je veux savoir si je dois prendre mon...">
+    <meta property="og:url" content="http://localhost:2368/2015/11/05/junit-theories/">
+    <meta property="og:image" content="http://localhost:2368/content/images/2015/11/math-banner.jpg">
+    <meta property="article:published_time" content="2015-11-05T20:58:08.607Z">
+    <meta property="article:modified_time" content="2015-11-05T21:35:53.989Z">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="JUnit Theories Test 2 : Enum &amp; Assume">
+    <meta name="twitter:description" content="Cet article est le second de la série sur les test de théories avec JUnit.  La première partie se trouve ici.  Cas d'étude : Cette fois-ci partons avec le cas suivant : Le matin je veux savoir si je dois prendre mon...">
+    <meta name="twitter:url" content="http://localhost:2368/2015/11/05/junit-theories/">
+    <meta name="twitter:image:src" content="http://localhost:2368/content/images/2015/11/math-banner.jpg">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "rpBlog",
+    "author": {
+        "@type": "Person",
+        "name": "Rowan PUTOA",
+        "url": "http://localhost:2368/author/rowan",
+        "sameAs": null,
+        "description": null
+    },
+    "headline": "JUnit Theories Test 2 : Enum &amp; Assume",
+    "url": "http://localhost:2368/2015/11/05/junit-theories/",
+    "datePublished": "2015-11-05T20:58:08.607Z",
+    "dateModified": "2015-11-05T21:35:53.989Z",
+    "image": "http://localhost:2368/content/images/2015/11/math-banner.jpg",
+    "description": "Cet article est le second de la série sur les test de théories avec JUnit.  La première partie se trouve ici.  Cas d&#x27;étude : Cette fois-ci partons avec le cas suivant : Le matin je veux savoir si je dois prendre mon..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.6">
+    <link rel="alternate" type="application/rss+xml" title="rpBlog" href="http://localhost:2368/rss/">
+</head>
+<body class="post-template nav-closed">
+
+    <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="index.html#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+            <li class="nav-home" role="presentation"><a href="http://localhost:2368/">Home</a></li>
+            <li class="nav-java" role="presentation"><a href="http://localhost:2368/tag/java/">Java</a></li>
+            <li class="nav-otaku" role="presentation"><a href="http://localhost:2368/tag/otaku/">Otaku</a></li>
+            <li class="nav-reviews" role="presentation"><a href="http://localhost:2368/reviews/">Reviews</a></li>
+            <li class="nav-about" role="presentation"><a href="http://localhost:2368/about/">About</a></li>
+    </ul>
+    <a class="subscribe-button icon-feed" href="http://localhost:2368/rss/">Subscribe</a>
+</div>
+<span class="nav-cover"></span>
+
+
+    <div class="site-wrapper">
+
+        
+
+
+<header class="main-header post-head " style="background-image: url(../../../../content/images/2015/11/math-banner.jpg)">
+    <nav class="main-nav overlay clearfix">
+        
+            <a class="menu-button icon-menu" href="index.html#"><span class="word">Menu</span></a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+    <article class="post">
+
+        <header class="post-header">
+            <h1 class="post-title">JUnit Theories Test 2 : Enum &amp; Assume</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2015-11-05">05 November 2015</time> 
+            </section>
+        </header>
+
+        <section class="post-content">
+            <p>Cet article est le second de la série sur les test de théories avec JUnit. <br>
+La première partie se trouve <a href="http://127.0.0.1:2368/junit-theories-test">ici</a>.</p>
+
+<p><b> Cas d'étude :</b></p>
+
+<p>Cette fois-ci partons avec le cas suivant : Le matin je veux savoir si je dois prendre mon parapluie en sortant de chez moi. Dans un premier temps imaginons que quelque soit le temps, je n'ai pas besoin de sortir mon parapluie. <br>
+Imaginons que le temps qu'il fait aujourd'hui est représenté par l'enum suivante :  </p>
+
+<pre><code class="language-java">public enum WeatherCondition {
+
+    RAINY(false),
+    WINDY(false),
+    SUNNY(false),
+    CLOUDY(false),
+    FOG(false),
+    HAZE(false);
+
+    WeatherCondition(boolean shouldTakeUmbrela) {
+        this.shouldTakeUmbrela = shouldTakeUmbrela;
+    }
+
+    private boolean shouldTakeUmbrela;
+
+    public boolean isShouldTakeUmbrela() {
+        return shouldTakeUmbrela;
+    }
+}
+</code></pre>
+
+<p>Le test de theorie suivant permet de tester cela :  </p>
+
+<pre><code class="language-java">@RunWith(Theories.class)
+public class WeatherConditionTheoriesTest {
+
+    @DataPoints
+    public static weatherCondition[] weatherConditions() {
+        return WeatherCondition.values();
+    }
+
+    @Theory
+    public void should_return_false_for_every_weather(WeatherCondition weatherCondition) {
+        assertThat(weatherCondition.isShouldTakeUmbrella()).isFalse();
+    }
+}
+</code></pre>
+
+<p>Jusqu'ici rien de nouveau par rapport au premier article.</p>
+
+<p><b> Cas d'etude 2 : Changement de la première règle.</b></p>
+
+<p>Maintenant imaginons que si il fait pluvieux(RAINY) ou si il y a du brouillard(FOG), je dois prendre mon parapluie. <br>
+L'enumeration que l'on utilise change donc de la manière suivante :  </p>
+
+<pre><code class="language-java">public enum WeatherCondition {
+
+    RAINY(true), //changed
+    WINDY(false),
+    SUNNY(false),
+    CLOUDY(false),
+    FOG(true), // changed 
+    HAZE(false);
+
+    WeatherCondition(boolean shouldTakeUmbrela) {
+        this.shouldTakeUmbrela = shouldTakeUmbrela;
+    }
+
+    private boolean shouldTakeUmbrela;
+
+    public boolean isShouldTakeUmbrela() {
+        return shouldTakeUmbrela;
+    }
+}
+</code></pre>
+
+<p>On devient bien embeter puisque maintenant on a 2 cas selon les valeurs de l'enum :</p>
+
+<ul>
+<li>true -&gt; si le temps est RAINY ou FOG.</li>
+<li>false -&gt; dans les autres cas.</li>
+</ul>
+
+<p>Heuresement JUnit propose quelque chose pour cela : "Assume". <br>
+Dans la pratique cela donne :  </p>
+
+<pre><code class="language-java">@RunWith(Theories.class)
+    public static class WeatherConditionServiceTheoriesTest {
+
+        @DataPoints
+        public static WeatherCondition[] weatherCondition() {
+            return WeatherCondition.values();
+        }
+
+        @Theory
+        public void should_return_true_when_weather_condition_is_rainy_or_fog(WeatherCondition weatherCondition) {
+            // Target specific case in the combination of datapoints
+            Assume.assumeThat(weatherCondition,
+                    CoreMatchers.anyOf(
+                            CoreMatchers.is(WeatherCondition.RAINY),
+                            CoreMatchers.is(WeatherCondition.FOG)));
+
+            // Verify assertion
+            assertThat(weatherCondition.isShouldTakeUmbrela()).isTrue();
+        }
+
+        @Theory
+        public void should_return_false_when_weather_condition_is_neither_rainy_nor_fog(WeatherCondition weatherCondition) {
+            // Target specific case in the combination of datapoints
+            Assume.assumeThat(weatherCondition,
+                    CoreMatchers.not(
+                            CoreMatchers.anyOf(
+                                    CoreMatchers.is(WeatherCondition.RAINY),
+                                    CoreMatchers.is(WeatherCondition.FOG))
+                    )
+            );
+
+            // Verify assertion
+            assertThat(weatherCondition.isShouldTakeUmbrela()).isFalse();
+        }
+    }
+</code></pre>
+        </section>
+
+        <footer class="post-footer">
+
+
+
+            <section class="author">
+                <h4><a href="../../../../author/rowan/">Rowan PUTOA</a></h4>
+
+                    <p>Read <a href="../../../../author/rowan/">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    
+                    
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/share?text=JUnit%20Theories%20Test%202%20%3A%20Enum%20%26%20Assume&amp;url=http://localhost:2368/2015/11/05/junit-theories/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/2015/11/05/junit-theories/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:2368/2015/11/05/junit-theories/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+                /* * * CONFIGURATION VARIABLES * * */
+                var disqus_shortname = 'otakoder';
+
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+        </footer>
+
+    </article>
+
+   </main>
+
+<aside class="read-next">
+    <a class="read-next-story prev no-cover" href="../junit-theories-test/">
+        <section class="post">
+            <h2>JUnit Theories Test 1 : Introduction</h2>
+            <p>Les test de théories. Mais qu'est-ce donc ? A quoi servent-ils ?  Un cas simpliste serait le suivant : Quelque soit 2…</p>
+        </section>
+    </a>
+</aside>
+
+
+
+        <footer class="site-footer clearfix">
+            <section class="copyright"><a href="http://localhost:2368">rpBlog</a> © 2015</section>
+            <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
+        </footer>
+
+    </div>
+
+    <script src="../../../../public/jquery.js?v=0d44f1b05c"></script>
+
+    <script type="text/javascript" src="../../../../assets/js/jquery.fitvids.js?v=0d44f1b05c"></script>
+    <script type="text/javascript" src="../../../../assets/js/index.js?v=0d44f1b05c"></script>
+    <script type="text/javascript" src="../../../../assets/js/prism.js?v=0d44f1b05c"></script>
+
+</body>

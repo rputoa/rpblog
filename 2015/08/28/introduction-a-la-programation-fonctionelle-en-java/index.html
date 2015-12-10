@@ -1,0 +1,282 @@
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Introduction à la programmation fonctionelle en java</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/screen.css?v=0d44f1b05c">
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/prism.css?v=0d44f1b05c">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic%7COpen+Sans:700,400">
+
+    <link rel="canonical" href="http://localhost:2368/2015/08/28/introduction-a-la-programation-fonctionelle-en-java/">
+    
+    <meta property="og:site_name" content="rpBlog">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Introduction à la programmation fonctionelle en java">
+    <meta property="og:description" content="Dans cette article, une petite introduction à la programmation fonctionelle en Java.  Parce qu'un exemple est plus parlant qu'un long texte attaquons de suite :   Cas d'étude :  Dans cette exemple très simpliste, on souhaite faire une méthode qui à partir d'une...">
+    <meta property="og:url" content="http://localhost:2368/2015/08/28/introduction-a-la-programation-fonctionelle-en-java/">
+    <meta property="article:published_time" content="2015-08-28T21:38:26.550Z">
+    <meta property="article:modified_time" content="2015-10-25T11:54:12.604Z">
+    <meta property="article:tag" content="java">
+    <meta property="article:tag" content="google guava">
+    <meta property="article:tag" content="java 8">
+    <meta property="article:tag" content="stream API">
+    <meta property="article:tag" content="programmation fonctionnelle">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Introduction à la programmation fonctionelle en java">
+    <meta name="twitter:description" content="Dans cette article, une petite introduction à la programmation fonctionelle en Java.  Parce qu'un exemple est plus parlant qu'un long texte attaquons de suite :   Cas d'étude :  Dans cette exemple très simpliste, on souhaite faire une méthode qui à partir d'une...">
+    <meta name="twitter:url" content="http://localhost:2368/2015/08/28/introduction-a-la-programation-fonctionelle-en-java/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "rpBlog",
+    "author": {
+        "@type": "Person",
+        "name": "Rowan PUTOA",
+        "url": "http://localhost:2368/author/rowan",
+        "sameAs": null,
+        "description": null
+    },
+    "headline": "Introduction à la programmation fonctionelle en java",
+    "url": "http://localhost:2368/2015/08/28/introduction-a-la-programation-fonctionelle-en-java/",
+    "datePublished": "2015-08-28T21:38:26.550Z",
+    "dateModified": "2015-10-25T11:54:12.604Z",
+    "keywords": "java, google guava, java 8, stream API, programmation fonctionnelle",
+    "description": "Dans cette article, une petite introduction à la programmation fonctionelle en Java.  Parce qu&#x27;un exemple est plus parlant qu&#x27;un long texte attaquons de suite :   Cas d&#x27;étude :  Dans cette exemple très simpliste, on souhaite faire une méthode qui à partir d&#x27;une..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.6">
+    <link rel="alternate" type="application/rss+xml" title="rpBlog" href="http://localhost:2368/rss/">
+</head>
+<body class="post-template tag-java tag-google-guava tag-java-8 tag-stream-api tag-programmation-fonctionnelle nav-closed">
+
+    <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="index.html#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+            <li class="nav-home" role="presentation"><a href="http://localhost:2368/">Home</a></li>
+            <li class="nav-java" role="presentation"><a href="http://localhost:2368/tag/java/">Java</a></li>
+            <li class="nav-otaku" role="presentation"><a href="http://localhost:2368/tag/otaku/">Otaku</a></li>
+            <li class="nav-reviews" role="presentation"><a href="http://localhost:2368/reviews/">Reviews</a></li>
+            <li class="nav-about" role="presentation"><a href="http://localhost:2368/about/">About</a></li>
+    </ul>
+    <a class="subscribe-button icon-feed" href="http://localhost:2368/rss/">Subscribe</a>
+</div>
+<span class="nav-cover"></span>
+
+
+    <div class="site-wrapper">
+
+        
+
+
+<header class="main-header post-head no-cover">
+    <nav class="main-nav  clearfix">
+        
+            <a class="menu-button icon-menu" href="index.html#"><span class="word">Menu</span></a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+    <article class="post tag-java tag-google-guava tag-java-8 tag-stream-api tag-programmation-fonctionnelle">
+
+        <header class="post-header">
+            <h1 class="post-title">Introduction à la programmation fonctionelle en java</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2015-08-28">28 August 2015</time>  on <a href="../../../../tag/java/">java</a>, <a href="../../../../tag/google-guava/">google guava</a>, <a href="../../../../tag/java-8/">java 8</a>, <a href="../../../../tag/stream-api/">stream API</a>, <a href="../../../../tag/programmation-fonctionnelle/">programmation fonctionnelle</a>
+            </section>
+        </header>
+
+        <section class="post-content">
+            <p>Dans cette article, une petite introduction à la programmation fonctionelle en Java. <br>
+Parce qu'un exemple est plus parlant qu'un long texte attaquons de suite : </p>
+
+<p><b> Cas d'étude :</b> <br>
+Dans cette exemple très simpliste, on souhaite faire une méthode qui à partir d'une liste de personne, nous renvoie la liste des prénoms des personnes ayant plus de 18 ans. <br>
+On présentera un exemple de code permettant de faire cela :</p>
+
+<ul>
+<li>Avec une boucle for et un if imbriqué (méthode "normale")</li>
+<li>Avec google guava (pour Java &lt; 8)</li>
+<li>Avec l'API de Stream (Java JDK 8) </li>
+</ul>
+
+<p><i> Modèle de donnée : </i>  </p>
+
+<pre><code class="language-java">public class Person {
+
+    private String name;
+
+    private String surname;
+
+    private int age;
+
+}
+</code></pre>
+
+<p>A partir de cette classe on peut voir qu'une personne à donc un nom (name), un prénom (surname) et un age (age). <br>
+Par soucis de lisibilité les getters et setters seront omis.</p>
+
+<p><i> Méthode "normale" : </i></p>
+
+<pre><code class="language-java">public class IterativePersonService {
+
+    public List&lt;String&gt; getPersonNameWithAgeSup18(List&lt;Person&gt; persons) {
+
+        List&lt;String&gt; result = new ArrayList&lt;String&gt;();
+
+        for(Person person : persons) {
+            if(person.getAge() &gt; 18) {
+                result.add(person.getName());
+            }
+        }
+
+        return result;
+    }
+}
+</code></pre>
+
+<p>Un cas assez simple, on itère sur la liste de personnes et pour chaque personne, si son age est supérieur à 18, on ajoute son nom à une liste de nom que l'on retourne en résultat de notre méthode.</p>
+
+<p><i> Avec google guava (pour Java &lt; 8) : </i></p>
+
+<pre><code class="language-java">public class GuavaPersonService {
+
+    // Static Predicate and Function can be externalized
+    public static final Predicate&lt;Person&gt; AGE_SUP_18 = new Predicate&lt;Person&gt;() {
+        public boolean apply(Person person) {
+            return person.getAge() &gt; 18;
+        }
+    };
+    public static final Function&lt;Person, String&gt; GET_NAME = new Function&lt;Person, String&gt;() {
+        public String apply(Person person) {
+            return person.getName();
+        }
+    };
+
+    // Method for introduction to functional programming begin here
+    public List&lt;String&gt; getPersonNameWithAgeSup18(List&lt;Person&gt; persons) {
+
+        public List&lt;String&gt; getPersonNameWithAgeSup18(List&lt;Person&gt; persons) {
+
+        List&lt;String&gt; result = FluentIterable.from(persons) // Get FluentIterable from list of persons
+                .filter(AGE_SUP_18) // after this step only person with age &gt; 18 remains
+                .transform(GET_NAME) // tranform list of person into list of person.name
+                .toList(); // return list
+
+        return result;
+    }
+}
+</code></pre>
+
+<p><br> <br>
+<i> Avec l API Stream (pour Java 8 +) : </i></p>
+
+<pre><code class="language-java">public class StreamPersonService {
+
+    public List&lt;String&gt; getPersonNameWithAgeSup18(List&lt;Person&gt; persons) {
+
+        List&lt;String&gt; result = persons.stream() // Use streamAPI
+                .filter(p -&gt; p.getAge() &gt; 18) // for each person p, keep if p.age &gt; 18
+                .map(p -&gt; p.getName()) // for each person p, return p.name
+                .collect(Collectors.toList()); // return list of p.name
+
+        return result;
+    }
+}
+</code></pre>
+        </section>
+
+        <footer class="post-footer">
+
+
+
+            <section class="author">
+                <h4><a href="../../../../author/rowan/">Rowan PUTOA</a></h4>
+
+                    <p>Read <a href="../../../../author/rowan/">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    
+                    
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/share?text=Introduction%20%C3%A0%20la%20programmation%20fonctionelle%20en%20java&amp;url=http://localhost:2368/2015/08/28/introduction-a-la-programation-fonctionelle-en-java/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/2015/08/28/introduction-a-la-programation-fonctionelle-en-java/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:2368/2015/08/28/introduction-a-la-programation-fonctionelle-en-java/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+                /* * * CONFIGURATION VARIABLES * * */
+                var disqus_shortname = 'otakoder';
+
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+        </footer>
+
+    </article>
+
+   </main>
+
+<aside class="read-next">
+    <a class="read-next-story no-cover" href="../../../11/05/junit-theories-test/">
+        <section class="post">
+            <h2>JUnit Theories Test 1 : Introduction</h2>
+            <p>Les test de théories. Mais qu'est-ce donc ? A quoi servent-ils ?  Un cas simpliste serait le suivant : Quelque soit 2…</p>
+        </section>
+    </a>
+    <a class="read-next-story prev no-cover" href="../../04/mockito-argument-captor/">
+        <section class="post">
+            <h2>Mockito : Argument Captor</h2>
+            <p>Introduction Lors de test unitaires, on veut parfois pouvoir vérifier les arguments qui sont passés à un service mais…</p>
+        </section>
+    </a>
+</aside>
+
+
+
+        <footer class="site-footer clearfix">
+            <section class="copyright"><a href="http://localhost:2368">rpBlog</a> © 2015</section>
+            <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
+        </footer>
+
+    </div>
+
+    <script src="../../../../public/jquery.js?v=0d44f1b05c"></script>
+
+    <script type="text/javascript" src="../../../../assets/js/jquery.fitvids.js?v=0d44f1b05c"></script>
+    <script type="text/javascript" src="../../../../assets/js/index.js?v=0d44f1b05c"></script>
+    <script type="text/javascript" src="../../../../assets/js/prism.js?v=0d44f1b05c"></script>
+
+</body>

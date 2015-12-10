@@ -1,0 +1,241 @@
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>junit test theories</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/screen.css?v=0d44f1b05c">
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/prism.css?v=0d44f1b05c">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic%7COpen+Sans:700,400">
+
+    <link rel="canonical" href="http://localhost:2368/2015/11/05/junit-theories-test/">
+    
+    <meta property="og:site_name" content="rpBlog">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="junit test theories">
+    <meta property="og:description" content="Les test de théories. Mais qu'est-ce donc ? A quoi servent-ils ?  Un cas simpliste serait le suivant : Quelque soit 2 entiers positifs a et b, a + b &gt; = a;  Que peut-on écrire comme test pour vérifier cela ?  test 1 :    @Test public void...">
+    <meta property="og:url" content="http://localhost:2368/2015/11/05/junit-theories-test/">
+    <meta property="article:published_time" content="2015-11-05T20:41:29.838Z">
+    <meta property="article:modified_time" content="2015-11-05T20:57:22.011Z">
+    <meta property="article:tag" content="java">
+    <meta property="article:tag" content="junit">
+    <meta property="article:tag" content="test">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="junit test theories">
+    <meta name="twitter:description" content="Les test de théories. Mais qu'est-ce donc ? A quoi servent-ils ?  Un cas simpliste serait le suivant : Quelque soit 2 entiers positifs a et b, a + b &gt; = a;  Que peut-on écrire comme test pour vérifier cela ?  test 1 :    @Test public void...">
+    <meta name="twitter:url" content="http://localhost:2368/2015/11/05/junit-theories-test/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "rpBlog",
+    "author": {
+        "@type": "Person",
+        "name": "Rowan PUTOA",
+        "url": "http://localhost:2368/author/rowan",
+        "sameAs": null,
+        "description": null
+    },
+    "headline": "junit test theories",
+    "url": "http://localhost:2368/2015/11/05/junit-theories-test/",
+    "datePublished": "2015-11-05T20:41:29.838Z",
+    "dateModified": "2015-11-05T20:57:22.011Z",
+    "keywords": "java, junit, test",
+    "description": "Les test de théories. Mais qu&#x27;est-ce donc ? A quoi servent-ils ?  Un cas simpliste serait le suivant : Quelque soit 2 entiers positifs a et b, a + b &gt; = a;  Que peut-on écrire comme test pour vérifier cela ?  test 1 :    @Test public void..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.6">
+    <link rel="alternate" type="application/rss+xml" title="rpBlog" href="http://localhost:2368/rss/">
+</head>
+<body class="post-template tag-java tag-junit tag-test nav-closed">
+
+    <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="index.html#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+            <li class="nav-home" role="presentation"><a href="http://localhost:2368/">Home</a></li>
+            <li class="nav-java" role="presentation"><a href="http://localhost:2368/tag/java/">Java</a></li>
+            <li class="nav-otaku" role="presentation"><a href="http://localhost:2368/tag/otaku/">Otaku</a></li>
+            <li class="nav-reviews" role="presentation"><a href="http://localhost:2368/reviews/">Reviews</a></li>
+            <li class="nav-about" role="presentation"><a href="http://localhost:2368/about/">About</a></li>
+    </ul>
+    <a class="subscribe-button icon-feed" href="http://localhost:2368/rss/">Subscribe</a>
+</div>
+<span class="nav-cover"></span>
+
+
+    <div class="site-wrapper">
+
+        
+
+
+<header class="main-header post-head no-cover">
+    <nav class="main-nav  clearfix">
+        
+            <a class="menu-button icon-menu" href="index.html#"><span class="word">Menu</span></a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+    <article class="post tag-java tag-junit tag-test">
+
+        <header class="post-header">
+            <h1 class="post-title">JUnit Theories Test 1 : Introduction</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2015-11-05">05 November 2015</time>  on <a href="../../../../tag/java/">java</a>, <a href="../../../../tag/junit/">junit</a>, <a href="../../../../tag/test/">test</a>
+            </section>
+        </header>
+
+        <section class="post-content">
+            <p>Les test de théories. Mais qu'est-ce donc ? A quoi servent-ils ? <br>
+Un cas simpliste serait le suivant : Quelque soit 2 entiers positifs a et b, a + b &gt; = a; <br>
+Que peut-on écrire comme test pour vérifier cela ?</p>
+
+<p><i> test 1 : </i>  </p>
+
+<pre><code class="language-java">@Test
+public void should_pass_for_a_and_b_greater_than_0() {  
+    int a = 2;
+    int b = 4;
+    assertThat(a+b &gt; a).isTrue();
+
+}
+</code></pre>
+
+<p>Remarquer l'utilisation du framework assertJ !! <br>
+Dans ce test on ne vérifie que l'assertion pour un couple de valeur précis. On doit surement pouvoir mieux faire (avec une boucle par exemple ?)</p>
+
+<p><i> test 2 : </i>  </p>
+
+<pre><code class="language-java">@Test
+public void should_pass_for_a_and_b_greater_than_0() {  
+    List&lt;Integer&gt; values = Arrays.asList(1, 23, 546, 2034, 20566);
+    for(Integer a : values) {
+        for(Integer b : values) {
+            assertThat(a+b &gt; a).isTrue();
+        }
+    }
+}
+</code></pre>
+
+<p>Déjà un peux mieux, on vérifie maintenant la théorie pour plusieurs couple de valeurs. <br>
+Néanmoins on peut utiliser réecrire notre test2 avec les théories de Junit de la facon suivante :</p>
+
+<p><i> test JUnit Theories : </i>  </p>
+
+<pre><code class="language-java">@RunWith(Theories.class)
+public class OurMethodTheoriesTest {
+
+    @DataPoints
+    public static int[] positiveIntegers() {
+        return new Int[]{1, 23, 546, 2034, 20566};
+    }
+
+    @Theory
+    public void should_pass_for_a_and_b_greater_than_0(Integer a, Integer b) {
+        assertThat(a+b &gt; a).isTrue();
+    }
+}
+</code></pre>
+
+<p>Commentons un peu ce test :</p>
+
+<ul>
+<li>@RunWith(Theories.class) : Cette annotation dis a JUnit d'utiliser le runner pour les test de theories, sans celle-ci on peut utiliser les test de theories.</li>
+<li>@Datapoints : Cette annotation permet de définir la méthode qui alimentera nos test en données. Dans cette exemple, cette methode renvoie des int.</li>
+<li>@Theory : Cette annotation remplace la classique @Test. La theorie prends des parametres en entree et est executee avec TOUTES les combinaisons possibles de parametres. Ainsi dans notre exemple le test sera lance 5^2 fois !! (avec [1,1] puis [1,23] puis [1,546] ...)</li>
+</ul>
+        </section>
+
+        <footer class="post-footer">
+
+
+
+            <section class="author">
+                <h4><a href="../../../../author/rowan/">Rowan PUTOA</a></h4>
+
+                    <p>Read <a href="../../../../author/rowan/">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    
+                    
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/share?text=JUnit%20Theories%20Test%201%20%3A%20Introduction&amp;url=http://localhost:2368/2015/11/05/junit-theories-test/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/2015/11/05/junit-theories-test/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:2368/2015/11/05/junit-theories-test/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+                /* * * CONFIGURATION VARIABLES * * */
+                var disqus_shortname = 'otakoder';
+
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+        </footer>
+
+    </article>
+
+   </main>
+
+<aside class="read-next">
+    <a class="read-next-story " style="background-image: url(../../../../content/images/2015/11/math-banner.jpg)" href="../junit-theories/">
+        <section class="post">
+            <h2>JUnit Theories Test 2 : Enum &amp; Assume</h2>
+            <p>Cet article est le second de la série sur les test de théories avec JUnit.  La première partie se…</p>
+        </section>
+    </a>
+    <a class="read-next-story prev no-cover" href="../../../08/28/introduction-a-la-programation-fonctionelle-en-java/">
+        <section class="post">
+            <h2>Introduction à la programmation fonctionelle en java</h2>
+            <p>Dans cette article, une petite introduction à la programmation fonctionelle en Java.  Parce qu'un exemple est plus parlant qu'un…</p>
+        </section>
+    </a>
+</aside>
+
+
+
+        <footer class="site-footer clearfix">
+            <section class="copyright"><a href="http://localhost:2368">rpBlog</a> © 2015</section>
+            <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
+        </footer>
+
+    </div>
+
+    <script src="../../../../public/jquery.js?v=0d44f1b05c"></script>
+
+    <script type="text/javascript" src="../../../../assets/js/jquery.fitvids.js?v=0d44f1b05c"></script>
+    <script type="text/javascript" src="../../../../assets/js/index.js?v=0d44f1b05c"></script>
+    <script type="text/javascript" src="../../../../assets/js/prism.js?v=0d44f1b05c"></script>
+
+</body>
